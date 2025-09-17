@@ -58,6 +58,12 @@ export default function VerifyEmailPage() {
                     <div className="text-sm text-gray-600 text-center space-y-2">
                         <p>입력하신 이메일 주소로 인증 링크를 발송했습니다.</p>
                         <p>이메일의 링크를 클릭하여 계정을 활성화해주세요.</p>
+                        <div className="bg-yellow-50 p-3 rounded-md border border-yellow-200 mt-4">
+                            <p className="text-yellow-700 text-xs">
+                                <strong>💡 팁:</strong> 이메일이 오지 않는다면 스팸 메일함을 확인하거나, 
+                                아래에서 이메일을 다시 입력하여 재발송해보세요.
+                            </p>
+                        </div>
                     </div>
 
                     <div className="space-y-3">

@@ -31,18 +31,19 @@ export async function signUp(formData: FormData) {
         }
     }
 
+    console.log('회원가입 시도:', { email, redirectUrl: `${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'}/auth/callback?next=/onboarding` })
+
     const { data, error } = await supabase.auth.signUp({
         email,
         password,
         options: {
             emailRedirectTo: `${
                 process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'
-            }/auth/callback`,
-            data: {
-                email_confirm: true
-            }
+            }/auth/callback?next=/onboarding`
         }
     })
+
+    console.log('회원가입 결과:', { data, error })
 
     if (error) {
         // Supabase 에러를 사용자 친화적 메시지로 변환
@@ -62,13 +63,20 @@ export async function signUp(formData: FormData) {
         }
     }
 
-    // 회원가입 성공 시 온보딩 페이지로 리다이렉트
-    if (data.user && !data.user.email_confirmed_at) {
-        // 이메일 인증이 필요한 경우
-        redirect('/auth/verify-email')
+    // 회원가입 성공 시 처리
+    if (data.user) {
+        // 이메일 인증이 필요한 경우 (Supabase에서 이메일 인증이 활성화된 경우)
+        if (!data.user.email_confirmed_at) {
+            redirect('/auth/verify-email')
+        } else {
+            // 이메일 인증이 완료된 경우 온보딩으로
+            redirect('/onboarding')
+        }
     } else {
-        // 이메일 인증이 완료된 경우 온보딩으로
-        redirect('/onboarding')
+        // 예상치 못한 상황
+        return {
+            error: '회원가입 중 오류가 발생했습니다. 다시 시도해주세요.'
+        }
     }
 }
 
@@ -250,7 +258,7 @@ export async function resendConfirmationEmail(email: string) {
         options: {
             emailRedirectTo: `${
                 process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'
-            }/auth/callback`
+            }/auth/callback?next=/onboarding`
         }
     })
 
