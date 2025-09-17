@@ -1,0 +1,34 @@
+{
+  "version": "7",
+  "dialect": "postgresql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1758003969990,
+      "tag": "0000_gifted_maria_hill",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1758074948344,
+      "tag": "0001_new_maddog",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1758082142851,
+      "tag": "0002_outstanding_lyja",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1758085883405,
+      "tag": "0003_reflective_scarlet_spider",
+      "breakpoints": true
+    }
+  ]
+}
