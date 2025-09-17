@@ -38,7 +38,7 @@ export default async function HomePage() {
                     <div className="flex items-center justify-between">
                         <div>
                             <h1 className="text-3xl font-bold text-gray-900">
-                                AI 메모장
+                                Andrew&apos;s 메모 관리
                             </h1>
                             <p className="text-gray-600 mt-1">
                                 안녕하세요, {maskEmailFriendly(user.email || '')}님! 👋
@@ -218,6 +218,6 @@ export default async function HomePage() {
 }
 
 export const metadata = {
-    title: 'AI 메모장 - 똑똑한 메모 관리',
+    title: 'Andrew&apos;s 메모 관리 - 똑똑한 메모 관리',
     description: 'AI의 도움을 받아 효율적으로 메모를 관리하세요'
 }

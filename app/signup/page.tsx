@@ -30,6 +30,6 @@ export default async function SignUpPage() {
 }
 
 export const metadata = {
-    title: '회원가입 - AI 메모장',
-    description: 'AI 메모장에 새 계정을 만들어보세요'
+    title: '회원가입 - Andrew&apos;s 메모 관리',
+    description: 'Andrew&apos;s 메모 관리에 새 계정을 만들어보세요'
 }

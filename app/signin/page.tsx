@@ -40,7 +40,7 @@ export default async function SignInPage({
             <div className="w-full max-w-md space-y-8">
                 <div className="text-center">
                     <h1 className="text-3xl font-bold text-gray-900 mb-2">
-                        AI 메모장
+                        Andrew&apos;s 메모 관리
                     </h1>
                     <p className="text-gray-600">다시 만나서 반갑습니다</p>
                 </div>
@@ -54,6 +54,6 @@ export default async function SignInPage({
 }
 
 export const metadata = {
-    title: '로그인 - AI 메모장',
-    description: 'AI 메모장에 로그인하세요'
+    title: '로그인 - Andrew&apos;s 메모 관리',
+    description: 'Andrew&apos;s 메모 관리에 로그인하세요'
 }

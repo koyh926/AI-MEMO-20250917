@@ -21,7 +21,7 @@ export default function OnboardingPage() {
                         회원가입 완료!
                     </CardTitle>
                     <CardDescription className="text-center">
-                        AI 메모장에 오신 것을 환영합니다.
+                        Andrew&apos;s 메모 관리에 오신 것을 환영합니다.
                     </CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-6">
@@ -56,6 +56,6 @@ export default function OnboardingPage() {
 }
 
 export const metadata = {
-    title: '온보딩 - AI 메모장',
-    description: 'AI 메모장에 오신 것을 환영합니다'
+    title: '온보딩 - Andrew&apos;s 메모 관리',
+    description: 'Andrew&apos;s 메모 관리에 오신 것을 환영합니다'
 }

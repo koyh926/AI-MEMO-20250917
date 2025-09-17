@@ -110,7 +110,7 @@ export function SignInForm() {
                     로그인
                 </CardTitle>
                 <CardDescription className="text-center">
-                    AI 메모장에 다시 오신 것을 환영합니다
+                    Andrew&apos;s 메모 관리에 다시 오신 것을 환영합니다
                 </CardDescription>
             </CardHeader>
             <CardContent>

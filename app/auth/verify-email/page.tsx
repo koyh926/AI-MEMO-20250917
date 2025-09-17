@@ -56,6 +56,6 @@ export default function VerifyEmailPage() {
 }
 
 export const metadata = {
-    title: '이메일 인증 - AI 메모장',
+    title: '이메일 인증 - Andrew&apos;s 메모 관리',
     description: '이메일 인증을 완료해주세요'
 }
