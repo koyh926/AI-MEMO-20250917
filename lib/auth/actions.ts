@@ -37,7 +37,10 @@ export async function signUp(formData: FormData) {
         options: {
             emailRedirectTo: `${
                 process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'
-            }/auth/callback`
+            }/auth/callback`,
+            data: {
+                email_confirm: true
+            }
         }
     })
 
@@ -228,4 +231,45 @@ export async function updatePassword(formData: FormData) {
     }
 
     redirect('/signin?message=password-updated')
+}
+
+export async function resendConfirmationEmail(email: string) {
+    const supabase = await createClient()
+
+    // 이메일 형식 검증
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    if (!email || !emailRegex.test(email)) {
+        return {
+            error: '올바른 이메일 형식을 입력해주세요.'
+        }
+    }
+
+    const { error } = await supabase.auth.resend({
+        type: 'signup',
+        email: email,
+        options: {
+            emailRedirectTo: `${
+                process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'
+            }/auth/callback`
+        }
+    })
+
+    if (error) {
+        let errorMessage = '인증 이메일 재발송 중 오류가 발생했습니다.'
+
+        if (error.message.includes('Email rate limit exceeded')) {
+            errorMessage = '너무 많은 요청이 발생했습니다. 잠시 후 다시 시도해주세요.'
+        } else if (error.message.includes('User already confirmed')) {
+            errorMessage = '이미 인증된 이메일입니다.'
+        }
+
+        return {
+            error: errorMessage
+        }
+    }
+
+    return {
+        success: true,
+        message: '인증 이메일이 재발송되었습니다. 이메일을 확인해주세요.'
+    }
 }

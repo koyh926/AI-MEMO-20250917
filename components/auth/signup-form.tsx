@@ -150,6 +150,13 @@ export function SignUpForm() {
                 <CardDescription className="text-center">
                     Andrew&apos;s 메모 관리에 오신 것을 환영합니다
                 </CardDescription>
+                <div className="bg-blue-50 p-3 rounded-md border border-blue-200">
+                    <p className="text-sm text-blue-700">
+                        <strong>📧 이메일 인증 안내:</strong><br />
+                        회원가입 후 이메일 인증이 필요합니다. 
+                        입력하신 이메일 주소로 인증 링크가 발송됩니다.
+                    </p>
+                </div>
             </CardHeader>
             <CardContent>
                 <form onSubmit={handleSubmit} className="space-y-4">

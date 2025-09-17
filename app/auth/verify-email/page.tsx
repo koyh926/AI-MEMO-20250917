@@ -1,3 +1,6 @@
+'use client'
+
+import { useState } from 'react'
 import {
     Card,
     CardContent,
@@ -6,10 +9,37 @@ import {
     CardTitle
 } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
-import { Mail } from 'lucide-react'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
+import { Mail, Loader2, CheckCircle } from 'lucide-react'
 import Link from 'next/link'
+import { resendConfirmationEmail } from '@/lib/auth/actions'
 
 export default function VerifyEmailPage() {
+    const [email, setEmail] = useState('')
+    const [isResending, setIsResending] = useState(false)
+    const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null)
+
+    const handleResendEmail = async (e: React.FormEvent) => {
+        e.preventDefault()
+        if (!email.trim()) return
+
+        setIsResending(true)
+        setMessage(null)
+
+        try {
+            const result = await resendConfirmationEmail(email)
+            if (result.success) {
+                setMessage({ type: 'success', text: result.message! })
+            } else {
+                setMessage({ type: 'error', text: result.error! })
+            }
+        } catch {
+            setMessage({ type: 'error', text: '오류가 발생했습니다. 다시 시도해주세요.' })
+        } finally {
+            setIsResending(false)
+        }
+    }
     return (
         <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
             <Card className="w-full max-w-md mx-auto">
@@ -41,6 +71,58 @@ export default function VerifyEmailPage() {
                         </ul>
                     </div>
 
+                    {/* 이메일 재발송 폼 */}
+                    <div className="pt-4 border-t">
+                        <form onSubmit={handleResendEmail} className="space-y-3">
+                            <div>
+                                <Label htmlFor="email" className="text-sm font-medium">
+                                    이메일 재발송
+                                </Label>
+                                <Input
+                                    id="email"
+                                    type="email"
+                                    placeholder="이메일 주소를 입력하세요"
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
+                                    required
+                                    className="mt-1"
+                                />
+                            </div>
+                            
+                            {message && (
+                                <div className={`p-3 rounded-md text-sm ${
+                                    message.type === 'success' 
+                                        ? 'bg-green-50 text-green-700 border border-green-200' 
+                                        : 'bg-red-50 text-red-700 border border-red-200'
+                                }`}>
+                                    <div className="flex items-center gap-2">
+                                        {message.type === 'success' ? (
+                                            <CheckCircle className="w-4 h-4" />
+                                        ) : (
+                                            <Mail className="w-4 h-4" />
+                                        )}
+                                        {message.text}
+                                    </div>
+                                </div>
+                            )}
+
+                            <Button 
+                                type="submit" 
+                                disabled={isResending || !email.trim()}
+                                className="w-full"
+                            >
+                                {isResending ? (
+                                    <>
+                                        <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                                        재발송 중...
+                                    </>
+                                ) : (
+                                    '인증 이메일 재발송'
+                                )}
+                            </Button>
+                        </form>
+                    </div>
+
                     <div className="pt-4 space-y-3">
                         <Button asChild className="w-full">
                             <Link href="/signin">로그인 페이지로 돌아가기</Link>
@@ -55,7 +137,5 @@ export default function VerifyEmailPage() {
     )
 }
 
-export const metadata = {
-    title: '이메일 인증 - Andrew&apos;s 메모 관리',
-    description: '이메일 인증을 완료해주세요'
-}
+// metadata는 클라이언트 컴포넌트에서 export할 수 없으므로 제거
+// 대신 페이지 내에서 동적으로 설정
